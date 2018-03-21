@@ -7,13 +7,13 @@ public class County
   private String name;
 
   //Orasele ce apartin acestui judet.
-  private ArrayList<City> cities;
+  public ArrayList<City> cities;
 
   //Constructor.
-  public County(String requiredname)
+  public County(String requiredName)
   {
     name = requiredName;
-    cities = new ArrayList<City>;
+    cities = new ArrayList<City>();
   } //County
 
   //METODE DE ACCESARE
@@ -38,7 +38,14 @@ public class County
   public void removeCity(String nameOfCityToRemove)
   {
     for(int index = 0; index < cities.size(); index++)
-      if(cities[index].getName() == nameOfCityToRemove)
+      if(cities.get(index).getName() == nameOfCityToRemove)
         cities.remove(index);
   } //removeCity
+
+  public City getCity(City cityToGet)
+  {
+    if(cities.contains(cityToGet))
+      return cityToGet;
+    else return null;
+  }
 } //class County

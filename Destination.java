@@ -7,10 +7,13 @@
    - o perioada in care se poate merge in vacanta acolo */
 import java.util.ArrayList;
 
-public class Destination
+
+public class Destination implements Comparable<Destination>
 {
   private String name;
   private City city;
+  private County county;
+  private Country country;
   private int dailyCost;
   private ArrayList<Activity> activities;
   private Period period;
@@ -18,44 +21,54 @@ public class Destination
   //Constructorul ia un String de forma:
   //nume ; oras ; judet ; tara ; cost ; activitati despartite prin "," ;
   //data de incepere a perioadei - data de terminare a perioadei
-  public Destination(String requiredDetails)
+  public Destination(String requiredDetails) throws Exception
   {
-    String elements = requiredDetails.split(";");
+    String[] elements = requiredDetails.split(";");
     name = elements[0];
     city = new City(elements[1]);
-    County county = new County(elements[2]);
-    Country country = new Country(elements[3]);
-    if(countries.contains(country))
+    county = new County(elements[2]);
+    country = new Country(elements[3]);
+    if(Test.countries.contains(country))
+    {
       if(country.counties.contains(county))
+      {
         if(!county.cities.contains(city))
+        {
           //Daca orasul nu exista in judet, trebuie adaugat.
           county.addCity(city);
+          //Trebuie adaugata destinatia orasului.
+          country.getCounty(county).getCity(city).addDestination(this);
+        }
+      } //if
       else
       {
         //Daca judetul nu exista in tara, trebuie adaugat.
         country.addCounty(county);
         //Apoi trebuie adaugat orasul.
         county.addCity(city);
+        //Trebuie adaugata destinatia orasului.
+        country.getCounty(county).getCity(city).addDestination(this);
       } //else
+    } //if
     else
     {
       //Daca tara nu exista, trebuie adaugata.
-      countries.add(country);
+      Test.countries.add(country);
       //Apoi trebuie adaugat judetul.
       country.addCounty(county);
       //Apoi trebuie adaugat orasul.
       county.addCity(city);
+      //Trebuie adaugata destinatia orasului.
+      country.getCounty(county).getCity(city).addDestination(this);
     } //else
-    //Trebuie adaugata destinatia orasului.
-    city.destinations.add(Destination);
+
     dailyCost = Integer.parseInt(elements[4]);
-    activities = new ArrayList<Activity>;
+    activities = new ArrayList<Activity>();
     String[] activityNames = elements[5].split(",");
     for(int index = 0; index < activityNames.length; index++)
-      activities.add(new Acitvity(activityNames[index]);
+      activities.add(new Activity(activityNames[index]));
     String[] dates = elements[6].split("-");
-    period.setStartDate(new Date(dates[0]));
-    period.setEndDate(new Date(dates[1]));
+    period = new Period(new Date(dates[0]), new Date(dates[1]));
   } //Destination
 
   public void setName(String newName)
@@ -76,14 +89,14 @@ public class Destination
   //Metoda pentru a adauga o activitate.
   public void addActivity(Activity newActivity)
   {
-    activites.add(newActivity);
+    activities.add(newActivity);
   } //addActivity
 
   //Metoda pentru a elimina o activitate.
   public void removeActivity(String nameOfActivityToRemove)
   {
     for(int index = 0; index < activities.size(); index++)
-      if(activities[index].getName() == nameOfActivityToRemove)
+      if(activities.get(index).getName() == nameOfActivityToRemove)
         activities.remove(index);
   } //removeActivity
 
@@ -104,18 +117,49 @@ public class Destination
     return city;
   } //getCity
 
+  public County getCounty()
+  {
+    return county;
+  } //getCountry
+
+  public Country getCountry()
+  {
+    return country;
+  } //getCountry
+
   public int getDailyCost()
   {
     return dailyCost;
   } //getDailyCost
 
-  public int getPeriod()
+  public Period getPeriod()
   {
     return period;
   } //getPeriod
 
-  public ArrayList<Activty> getActivities()
+  public ArrayList<Activity> getActivities()
   {
     return activities;
   } //getActivites
+
+  public String toString()
+  {
+    String activitiesString = "";
+    for(int index = 0; index < activities.size(); index++)
+      activitiesString += activities.get(index).getName() + ", ";
+
+    String description = "Destinatia " + name + ", din orasul " + city.getName()
+                          + ", necesita un buget zilnic de " + dailyCost
+                          + ". Aici se pot practica urmatoarele activitati: "
+                          + activitiesString + " in perioada "
+                          + period.getStartDate() + " - " + period.getEndDate();
+  return description;
+} //toString
+
+@Override
+public int compareTo(Destination other)
+{
+  return this.dailyCost - other.getDailyCost();
+} //compareTo
+
 } //class Destination

@@ -1,5 +1,5 @@
 //Clasa ce reprezinta o perioada de timp intre doua date.
-import java.util.Date;
+
 
 public class Period
 {
@@ -18,13 +18,23 @@ public class Period
     return startDate.daysFrom(endDate);
   } //getNoOfDays
 
-  public void setStartDate(Date newStartDate)
+  public void setStartDate(Date newStartDate) throws Exception
   {
     startDate = newStartDate;
   } //setStartDate
 
-  public void setEndDate(Date newEndDate)
+  public void setEndDate(Date newEndDate) throws Exception
   {
     endDate = newEndDate;
   } //setEndDate
+
+  public Date getStartDate()
+  {
+    return startDate;
+  } //getStartDate
+
+  public Date getEndDate()
+  {
+    return endDate;
+  } //getEndDate
 } //class Period
