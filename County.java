@@ -23,11 +23,6 @@ public class County
     return name;
   } //getName
 
-  public ArrayList<City> getCities()
-  {
-    return cities;
-  } //getCities
-
   //Metoda pentru a adauga un oras.
   public void addCity(City newCity)
   {

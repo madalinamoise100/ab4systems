@@ -6,7 +6,7 @@
    - o colectie de activitati ce se pot practica acolo
    - o perioada in care se poate merge in vacanta acolo */
 import java.util.ArrayList;
-
+import java.util.HashMap;
 
 public class Destination implements Comparable<Destination>
 {
@@ -17,6 +17,7 @@ public class Destination implements Comparable<Destination>
   private int dailyCost;
   private ArrayList<Activity> activities;
   private Period period;
+  public static HashMap<String, ArrayList<Destination>> activitiesMap;
 
   //Constructorul ia un String de forma:
   //nume ; oras ; judet ; tara ; cost ; activitati despartite prin "," ;
@@ -36,8 +37,6 @@ public class Destination implements Comparable<Destination>
         {
           //Daca orasul nu exista in judet, trebuie adaugat.
           county.addCity(city);
-          //Trebuie adaugata destinatia orasului.
-          country.getCounty(county).getCity(city).addDestination(this);
         }
       } //if
       else
@@ -46,8 +45,6 @@ public class Destination implements Comparable<Destination>
         country.addCounty(county);
         //Apoi trebuie adaugat orasul.
         county.addCity(city);
-        //Trebuie adaugata destinatia orasului.
-        country.getCounty(county).getCity(city).addDestination(this);
       } //else
     } //if
     else
@@ -58,15 +55,27 @@ public class Destination implements Comparable<Destination>
       country.addCounty(county);
       //Apoi trebuie adaugat orasul.
       county.addCity(city);
-      //Trebuie adaugata destinatia orasului.
-      country.getCounty(county).getCity(city).addDestination(this);
     } //else
 
     dailyCost = Integer.parseInt(elements[4]);
     activities = new ArrayList<Activity>();
     String[] activityNames = elements[5].split(",");
     for(int index = 0; index < activityNames.length; index++)
+    {
       activities.add(new Activity(activityNames[index]));
+      if(!activitiesMap.containsKey(activities.get(index).getName()))
+      {
+        ArrayList<Destination> values = new ArrayList<Destination>();
+        values.add(this);
+        activitiesMap.put(activities.get(index).getName(), values);
+      } //if
+      else
+      {
+        ArrayList<Destination> currentValues = activitiesMap.get(activities.get(index).getName());
+        currentValues.add(this);
+        activitiesMap.put(activities.get(index).getName(), currentValues);
+      } //else
+    } //for
     String[] dates = elements[6].split("-");
     period = new Period(new Date(dates[0]), new Date(dates[1]));
   } //Destination
