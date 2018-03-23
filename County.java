@@ -29,14 +29,6 @@ public class County
     cities.add(newCity);
   } //addCity
 
-  //Metoda pentru a elimina un oras.
-  public void removeCity(String nameOfCityToRemove)
-  {
-    for(int index = 0; index < cities.size(); index++)
-      if(cities.get(index).getName() == nameOfCityToRemove)
-        cities.remove(index);
-  } //removeCity
-
   public City getCity(City cityToGet)
   {
     if(cities.contains(cityToGet))

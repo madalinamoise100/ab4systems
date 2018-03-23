@@ -1,0 +1,88 @@
+#!/bin/bash
+set -v
+
+
+
+java Test << END
+4
+END
+
+
+
+java Test << END
+1
+AfiPalace
+END
+
+
+
+java Test << END
+1
+Destinatie inexistenta
+END
+
+
+
+java Test << END
+2
+01/03/2018-01/04/2018
+1
+Romania
+END
+
+
+
+java Test << END
+2
+01/06/2018-01/07/2018
+2
+Romania-Prahova
+END
+
+
+
+java Test << END
+2
+01/03/2018-01/04/2018
+3
+Romania-Bucuresti-Bucuresti
+END
+
+
+
+java Test << END
+2
+01/03/2018-01/04/2018
+2
+Romania-Prahova
+END
+
+
+
+java Test << END
+2
+01/03/2018-01/04/2018
+1
+Turcia
+END
+
+
+
+java Test << END
+3
+shopping
+END
+
+
+
+java Test << END
+3
+vizitat
+END
+
+
+
+java Test << END
+3
+clubbing
+END

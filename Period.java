@@ -1,6 +1,5 @@
 //Clasa ce reprezinta o perioada de timp intre doua date.
 
-
 public class Period
 {
   private Date startDate;
@@ -12,11 +11,6 @@ public class Period
     startDate = requiredStartDate;
     endDate = requiredEndDate;
   } //Period
-
-  public int getNoOfDays()
-  {
-    return startDate.daysFrom(endDate);
-  } //getNoOfDays
 
   public void setStartDate(Date newStartDate) throws Exception
   {

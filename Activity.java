@@ -1,3 +1,4 @@
+//O instanta a acestei clase reprezinta o activitate.
 public class Activity
 {
   //Numele activitatii.

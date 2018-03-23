@@ -58,8 +58,10 @@ public class Destination implements Comparable<Destination>
     } //else
 
     dailyCost = Integer.parseInt(elements[4]);
+
     activities = new ArrayList<Activity>();
     String[] activityNames = elements[5].split(",");
+    //Activitatile sunt folosite drept keys intr-un HashMap.
     for(int index = 0; index < activityNames.length; index++)
     {
       activities.add(new Activity(activityNames[index]));
@@ -146,11 +148,6 @@ public class Destination implements Comparable<Destination>
     return period;
   } //getPeriod
 
-  public ArrayList<Activity> getActivities()
-  {
-    return activities;
-  } //getActivites
-
   public String toString()
   {
     String activitiesString = "";
@@ -165,6 +162,7 @@ public class Destination implements Comparable<Destination>
   return description;
 } //toString
 
+//Destinatiile sunt comparate in functie de dailyCost.
 @Override
 public int compareTo(Destination other)
 {
